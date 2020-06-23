@@ -50,6 +50,7 @@ function registerBaseRouter() {
 
   // post 请求
   router.post('/base/post', function(req, res) {
+    console.log(req.body)
     res.json(req.body)
   })
 

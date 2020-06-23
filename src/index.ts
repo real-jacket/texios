@@ -1,19 +1,21 @@
-import { TexiosRequestConfig } from './types'
+import { TexiosRequestConfig, TexiosPromise, TexiosResponse } from './types'
 import xhr from './xhr'
 import { buildUrl } from './helpers/url'
-import { transformRequest } from './helpers/data'
+import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/header'
 
-function texios(config: TexiosRequestConfig) {
+function texios(config: TexiosRequestConfig): TexiosPromise {
   processConfig(config)
-  xhr(config)
+  return xhr(config).then(res => {
+    return transformResponseData(res)
+  })
 }
 
 // 处理 config
 function processConfig(config: TexiosRequestConfig): void {
+  config.headers = transformHeaders(config)
   config.url = transformURL(config)
   config.data = transformData(config)
-  config.headers = transformHeaders(config)
 }
 
 // 转化 url
@@ -31,6 +33,11 @@ function transformData(config: TexiosRequestConfig): any {
 function transformHeaders(config: TexiosRequestConfig): any {
   const { headers = {}, data } = config
   return processHeaders(headers, data)
+}
+
+function transformResponseData(res: TexiosResponse): TexiosResponse {
+  res.data = transformResponse(res.data)
+  return res
 }
 
 export default texios

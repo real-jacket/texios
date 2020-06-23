@@ -70,45 +70,6 @@ import texios from '../../src/index'
 //   }
 // })
 
-texios({
-  method: 'post',
-  url: '/base/post',
-  data: {
-    a: 1,
-    b: 2
-  }
-})
-
-texios({
-  method: 'post',
-  url: '/base/post',
-  headers: {
-    'content-type': 'application/json;charset=utf-8',
-    Accept: 'application/json, tex/plain, */*'
-  },
-  data: {
-    a: 1,
-    b: 2
-  }
-})
-
-const arr = new Int32Array([21, 31])
-
-texios({
-  method: 'post',
-  url: '/base/buffer',
-  data: arr
-})
-
-const paramsString = 'q=URLUtils.searchParams&topic=api'
-const searchParams = new URLSearchParams(paramsString)
-
-texios({
-  method: 'post',
-  url: '/base/post',
-  data: searchParams
-})
-
 // texios({
 //   method: 'post',
 //   url: '/base/post',
@@ -116,18 +77,64 @@ texios({
 //     a: 1,
 //     b: 2
 //   }
-// }).then(res => {
-//   console.log(res)
 // })
 
 // texios({
 //   method: 'post',
 //   url: '/base/post',
-//   responseType: 'json',
+//   headers: {
+//     'content-type': 'application/json;charset=utf-8',
+//     Accept: 'application/json, tex/plain, */*'
+//   },
 //   data: {
-//     a: 3,
-//     b: 4
+//     a: 1,
+//     b: 2
 //   }
-// }).then(res => {
-//   console.log(res)
 // })
+// const arr = new Int32Array([21, 31])
+
+// texios({
+//   method: 'post',
+//   url: '/base/buffer',
+//   data: arr
+// })
+
+// const paramsString = 'q=URLUtils.searchParams&topic=api'
+// const searchParams = new URLSearchParams(paramsString)
+
+// texios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: searchParams
+// })
+
+texios({
+  method: 'post',
+  url: '/base/post',
+  data: {
+    a: 1,
+    b: 2
+  }
+})
+  .then(res => {
+    console.log(res)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+texios({
+  method: 'post',
+  url: '/base/post',
+  responseType: 'json',
+  data: {
+    a: 3,
+    b: 4
+  }
+})
+  .then(res => {
+    console.log(res)
+  })
+  .catch(err => {
+    console.log(err)
+  })
