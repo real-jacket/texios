@@ -4,6 +4,11 @@ export function isDate(val: any): val is Date {
   return toString.call(val) === '[object Date]'
 }
 
-export function isObject(val: any): val is Object {
-  return val !== null && typeof val === 'object'
+// export function isObject(val: any): val is Object {
+//   return val !== null && typeof val === 'object'
+// }
+
+// 对纯对象的判断，避免 Date Blob 等特殊对象干扰
+export function isPlainObject(val: any): val is Object {
+  return toString.call(val) === '[object Object]'
 }
