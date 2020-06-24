@@ -1,5 +1,3 @@
-import { type } from 'os'
-
 export type Method =
   | 'get'
   | 'GET'
@@ -23,6 +21,7 @@ export interface TexiosRequestConfig {
   params?: any
   headers?: any
   responseType?: XMLHttpRequestResponseType
+  timeout?: number
 }
 
 export interface TexiosResponse {
@@ -35,3 +34,11 @@ export interface TexiosResponse {
 }
 
 export interface TexiosPromise extends Promise<TexiosResponse> {}
+
+export interface TexiosError extends Error {
+  isTexiosError: boolean
+  config: TexiosRequestConfig
+  code?: string | null
+  request?: any
+  response?: TexiosResponse
+}
