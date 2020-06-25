@@ -1,6 +1,6 @@
-import { TexiosRequestConfig, TexiosResponse, TexiosPromise } from './types'
-import { parseHeaders } from './helpers/header'
-import { createError } from './helpers/error'
+import { TexiosRequestConfig, TexiosResponse, TexiosPromise } from '../types'
+import { parseHeaders } from '../helpers/header'
+import { createError } from '../helpers/error'
 
 export default function xhr(config: TexiosRequestConfig): TexiosPromise {
   return new Promise((resolve, reject) => {
@@ -12,7 +12,7 @@ export default function xhr(config: TexiosRequestConfig): TexiosPromise {
 
     if (timeout) request.timeout = timeout
 
-    request.open(method.toUpperCase(), url, true)
+    request.open(method.toUpperCase(), url!, true)
 
     request.onreadystatechange = function handleLoad() {
       if (request.readyState !== 4) return

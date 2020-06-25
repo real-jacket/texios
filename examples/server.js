@@ -35,6 +35,7 @@ router.get('/simple/get', function(req, res) {
 
 registerBaseRouter()
 registerErrorRouter()
+registerExtendRouter()
 
 const port = process.env.PORT || 8080
 
@@ -87,5 +88,50 @@ function registerErrorRouter() {
         msg: `hello world`
       })
     }, 3000)
+  })
+}
+
+function registerExtendRouter() {
+  router.get('/extend/get', function(req, res) {
+    res.json({
+      method: req.method,
+      msg: `hello world`
+    })
+  })
+  router.head('/extend/head', function(req, res) {
+    res.json({
+      method: req.method,
+      msg: `hello world`
+    })
+  })
+  router.options('/extend/options', function(req, res) {
+    res.json({
+      method: req.method,
+      msg: `hello world`
+    })
+  })
+  router.delete('/extend/delete', function(req, res) {
+    res.json({
+      method: req.method,
+      msg: `hello world`
+    })
+  })
+  router.post('/extend/post', function(req, res) {
+    res.json({
+      method: req.method,
+      body: req.body
+    })
+  })
+  router.put('/extend/put', function(req, res) {
+    res.json({
+      method: req.method,
+      body: req.body
+    })
+  })
+  router.patch('/extend/patch', function(req, res) {
+    res.json({
+      method: req.method,
+      body: req.body
+    })
   })
 }
