@@ -134,4 +134,15 @@ function registerExtendRouter() {
       body: req.body
     })
   })
+
+  router.get('/extend/user', function(req, res) {
+    res.json({
+      code: 100,
+      result: {
+        name: 'jack',
+        age: 15
+      },
+      message: 'success'
+    })
+  })
 }

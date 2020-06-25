@@ -2,7 +2,15 @@ import { TexiosRequestConfig, TexiosPromise, Method } from '../types'
 import dispatchRequest from './dispatchRequest'
 
 export default class Texios {
-  request(config: TexiosRequestConfig): TexiosPromise {
+  request(url: string | TexiosRequestConfig, config?: TexiosRequestConfig): TexiosPromise {
+    if (typeof url === 'string') {
+      if (!config) {
+        config = {}
+      }
+      config.url = url
+    } else {
+      config = url
+    }
     return dispatchRequest(config)
   }
 

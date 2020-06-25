@@ -24,8 +24,8 @@ export interface TexiosRequestConfig {
   timeout?: number
 }
 
-export interface TexiosResponse {
-  data: any
+export interface TexiosResponse<T = any> {
+  data: T
   status: number
   statusText: string
   headers: any
@@ -33,7 +33,7 @@ export interface TexiosResponse {
   request: any
 }
 
-export interface TexiosPromise extends Promise<TexiosResponse> {}
+export interface TexiosPromise<T = any> extends Promise<TexiosResponse<T>> {}
 
 export interface TexiosError extends Error {
   isTexiosError: boolean
@@ -44,23 +44,25 @@ export interface TexiosError extends Error {
 }
 
 export interface Texios {
-  request(config: TexiosRequestConfig): TexiosPromise
+  request<T = any>(config: TexiosRequestConfig): TexiosPromise<T>
 
-  get(url: string, config?: TexiosRequestConfig): TexiosPromise
+  get<T = any>(url: string, config?: TexiosRequestConfig): TexiosPromise<T>
 
-  delete(url: string, config?: TexiosRequestConfig): TexiosPromise
+  delete<T = any>(url: string, config?: TexiosRequestConfig): TexiosPromise<T>
 
-  head(url: string, config?: TexiosRequestConfig): TexiosPromise
+  head<T = any>(url: string, config?: TexiosRequestConfig): TexiosPromise<T>
 
-  options(url: string, config?: TexiosRequestConfig): TexiosPromise
+  options<T = any>(url: string, config?: TexiosRequestConfig): TexiosPromise<T>
 
-  post(url: string, data?: any, config?: TexiosRequestConfig): TexiosPromise
+  post<T = any>(url: string, data?: any, config?: TexiosRequestConfig): TexiosPromise<T>
 
-  put(url: string, data?: any, config?: TexiosRequestConfig): TexiosPromise
+  put<T = any>(url: string, data?: any, config?: TexiosRequestConfig): TexiosPromise<T>
 
-  patch(url: string, data?: any, config?: TexiosRequestConfig): TexiosPromise
+  patch<T = any>(url: string, data?: any, config?: TexiosRequestConfig): TexiosPromise<T>
 }
 
 export interface TexiosInstance extends Texios {
-  (config: TexiosRequestConfig): TexiosPromise
+  <T = any>(config: TexiosRequestConfig): TexiosPromise<T>
+
+  <T = any>(url: string, config?: TexiosRequestConfig): TexiosPromise<T>
 }
