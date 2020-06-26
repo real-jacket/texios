@@ -36,6 +36,7 @@ router.get('/simple/get', function(req, res) {
 registerBaseRouter()
 registerErrorRouter()
 registerExtendRouter()
+registerInterceptorRouter()
 
 const port = process.env.PORT || 8080
 
@@ -144,5 +145,11 @@ function registerExtendRouter() {
       },
       message: 'success'
     })
+  })
+}
+
+function registerInterceptorRouter() {
+  router.get('/interceptor/get', function(req, res) {
+    res.json('interceptor')
   })
 }

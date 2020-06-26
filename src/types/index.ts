@@ -1,3 +1,5 @@
+import InterceptorManager from '../core/interceptorManager'
+
 export type Method =
   | 'get'
   | 'GET'
@@ -44,6 +46,11 @@ export interface TexiosError extends Error {
 }
 
 export interface Texios {
+  interceptors: {
+    request: InterceptorManager<TexiosRequestConfig>
+    response: InterceptorManager<TexiosResponse>
+  }
+
   request<T = any>(config: TexiosRequestConfig): TexiosPromise<T>
 
   get<T = any>(url: string, config?: TexiosRequestConfig): TexiosPromise<T>
@@ -65,4 +72,18 @@ export interface TexiosInstance extends Texios {
   <T = any>(config: TexiosRequestConfig): TexiosPromise<T>
 
   <T = any>(url: string, config?: TexiosRequestConfig): TexiosPromise<T>
+}
+
+export interface TexiosInterceptorManager<T> {
+  use(resolved: ResolvedFn<T>, reject: RejectedFn): number
+
+  eject(id: number): void
+}
+
+export interface ResolvedFn<T> {
+  (val: T): T | Promise<T>
+}
+
+export interface RejectedFn {
+  (error: any): any
 }
