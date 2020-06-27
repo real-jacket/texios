@@ -3,6 +3,7 @@ import xhr from './xhr'
 import { buildUrl } from '../helpers/url'
 import { transformRequest, transformResponse } from '../helpers/data'
 import { processHeaders } from '../helpers/header'
+import { flattenHeaders } from '../helpers/util'
 
 function dispatchRequest(config: TexiosRequestConfig): TexiosPromise {
   processConfig(config)
@@ -16,6 +17,7 @@ function processConfig(config: TexiosRequestConfig): void {
   config.headers = transformHeaders(config)
   config.url = transformURL(config)
   config.data = transformData(config)
+  config.headers = flattenHeaders(config.headers, config.method!)
 }
 
 // 转化 url

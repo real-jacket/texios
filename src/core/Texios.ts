@@ -8,6 +8,7 @@ import {
 } from '../types'
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from './interceptorManager'
+import mergeConfig from './mergeConfig'
 
 interface Interceptors {
   request: InterceptorManager<TexiosRequestConfig>
@@ -20,9 +21,11 @@ interface PromiseChain<T> {
 }
 
 export default class Texios {
+  defaults: TexiosRequestConfig
   interceptors: Interceptors
 
-  constructor() {
+  constructor(initialConfig: TexiosRequestConfig) {
+    this.defaults = initialConfig
     this.interceptors = {
       request: new InterceptorManager<TexiosRequestConfig>(),
       response: new InterceptorManager<TexiosResponse>()
@@ -38,6 +41,8 @@ export default class Texios {
     } else {
       config = url
     }
+
+    config = mergeConfig(this.defaults, config)
 
     const chain: PromiseChain<any>[] = [
       {

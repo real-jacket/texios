@@ -24,6 +24,8 @@ export interface TexiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+
+  [propName: string]: any
 }
 
 export interface TexiosResponse<T = any> {
@@ -46,6 +48,7 @@ export interface TexiosError extends Error {
 }
 
 export interface Texios {
+  defaults: TexiosRequestConfig
   interceptors: {
     request: InterceptorManager<TexiosRequestConfig>
     response: InterceptorManager<TexiosResponse>
