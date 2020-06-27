@@ -79,6 +79,10 @@ export interface TexiosInstance extends Texios {
   <T = any>(url: string, config?: TexiosRequestConfig): TexiosPromise<T>
 }
 
+export interface TexiosStatic extends TexiosInstance {
+  create(config?: TexiosRequestConfig): TexiosInstance
+}
+
 export interface TexiosInterceptorManager<T> {
   use(resolved: ResolvedFn<T>, reject: RejectedFn): number
 
