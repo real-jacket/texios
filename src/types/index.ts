@@ -24,6 +24,8 @@ export interface TexiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  transformRequest?: TexiosTransformer | TexiosTransformer[]
+  transformResponse?: TexiosTransformer | TexiosTransformer[]
 
   [propName: string]: any
 }
@@ -89,4 +91,8 @@ export interface ResolvedFn<T> {
 
 export interface RejectedFn {
   (error: any): any
+}
+
+export interface TexiosTransformer {
+  (data: any, headers?: any): any
 }

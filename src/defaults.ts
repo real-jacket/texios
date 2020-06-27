@@ -1,4 +1,6 @@
 import { TexiosRequestConfig } from './types'
+import { transformRequest, transformResponse } from './helpers/data'
+import { processHeaders } from './helpers/header'
 
 const defaults: TexiosRequestConfig = {
   method: 'get',
@@ -9,7 +11,19 @@ const defaults: TexiosRequestConfig = {
     common: {
       Accept: 'application/json, text/plain, */*'
     }
-  }
+  },
+
+  transformRequest: [
+    function(data: any, headers: any): any {
+      processHeaders(headers, data)
+      return transformRequest(data)
+    }
+  ],
+  transformResponse: [
+    function(data: any): any {
+      return transformResponse(data)
+    }
+  ]
 }
 
 const methodNoData = ['delete', 'get', 'head', 'options']

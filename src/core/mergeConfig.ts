@@ -1,7 +1,7 @@
 import { TexiosRequestConfig } from '../types'
 import { isPlainObject, deepMerge } from '../helpers/util'
 
-const starts = Object.create(null)
+const strates = Object.create(null)
 
 function defaultStrate(val1: any, val2: any): any {
   return typeof val2 !== 'undefined' ? val2 : val1
@@ -28,13 +28,13 @@ function deepMergeStrate(val1: any, val2: any): any {
 const startKeysFromVal2 = ['url', 'params', 'data']
 
 startKeysFromVal2.forEach(key => {
-  starts[key] = fromVal2Strate
+  strates[key] = fromVal2Strate
 })
 
 const strateKeysDeepMerge = ['headers']
 
 strateKeysDeepMerge.forEach(key => {
-  starts[key] = deepMergeStrate
+  strates[key] = deepMergeStrate
 })
 
 export default function mergeConfig(
@@ -58,8 +58,8 @@ export default function mergeConfig(
   }
 
   function mergeField(key: string): void {
-    const start = starts[key] || defaultStrate
-    config[key] = start(config1[key], config2![key])
+    const strate = strates[key] || defaultStrate
+    config[key] = strate(config1[key], config2![key])
   }
 
   return config
