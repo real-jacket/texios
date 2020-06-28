@@ -26,6 +26,7 @@ export interface TexiosRequestConfig {
   timeout?: number
   transformRequest?: TexiosTransformer | TexiosTransformer[]
   transformResponse?: TexiosTransformer | TexiosTransformer[]
+  cancelToken?: CancelToken
 
   [propName: string]: any
 }
@@ -81,6 +82,10 @@ export interface TexiosInstance extends Texios {
 
 export interface TexiosStatic extends TexiosInstance {
   create(config?: TexiosRequestConfig): TexiosInstance
+
+  CancelToken: CancelTokenStatic
+  Cancel: CancelStatic
+  isCancel: (value: any) => boolean
 }
 
 export interface TexiosInterceptorManager<T> {
@@ -99,4 +104,38 @@ export interface RejectedFn {
 
 export interface TexiosTransformer {
   (data: any, headers?: any): any
+}
+
+export interface CancelToken {
+  promise: Promise<Cancel>
+  reason?: Cancel
+
+  throwIfRequested(): void
+}
+
+export interface Canceler {
+  (message?: string): void
+}
+
+export interface CancelExecutor {
+  (cancel: Canceler): void
+}
+
+export interface CancelTokenSource {
+  token: CancelToken
+  cancel: Canceler
+}
+
+export interface CancelTokenStatic {
+  new (executor: CancelExecutor): CancelToken
+
+  source(): CancelTokenSource
+}
+
+export interface Cancel {
+  message?: string
+}
+
+export interface CancelStatic {
+  new (message?: string): Cancel
 }

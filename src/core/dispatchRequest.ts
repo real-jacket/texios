@@ -6,7 +6,8 @@ import { buildUrl } from '../helpers/url'
 import { flattenHeaders } from '../helpers/util'
 import transform from './transform'
 
-function dispatchRequest(config: TexiosRequestConfig): TexiosPromise {
+export default function dispatchRequest(config: TexiosRequestConfig): TexiosPromise {
+  throwIfCancellationRequested(config)
   processConfig(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
@@ -42,4 +43,8 @@ function transformResponseData(res: TexiosResponse): TexiosResponse {
   return res
 }
 
-export default dispatchRequest
+function throwIfCancellationRequested(config: TexiosRequestConfig): void {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested()
+  }
+}
