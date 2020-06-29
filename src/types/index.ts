@@ -27,6 +27,7 @@ export interface TexiosRequestConfig {
   transformRequest?: TexiosTransformer | TexiosTransformer[]
   transformResponse?: TexiosTransformer | TexiosTransformer[]
   cancelToken?: CancelToken
+  withCredentials?: boolean
 
   [propName: string]: any
 }
