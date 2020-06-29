@@ -2,6 +2,8 @@ import { TexiosRequestConfig, TexiosResponse, TexiosPromise } from '../types'
 import { parseHeaders } from '../helpers/header'
 import { createError } from '../helpers/error'
 import { createCredentials } from 'crypto'
+import { isURLSameOrigin } from '../helpers/url'
+import cookie from '../helpers/cookie'
 
 export default function xhr(config: TexiosRequestConfig): TexiosPromise {
   return new Promise((resolve, reject) => {
@@ -13,7 +15,9 @@ export default function xhr(config: TexiosRequestConfig): TexiosPromise {
       responseType,
       timeout,
       cancelToken,
-      withCredentials
+      withCredentials,
+      xsrfCookieName,
+      xsrfHeaderName
     } = config
 
     const request = new XMLHttpRequest()
@@ -51,6 +55,13 @@ export default function xhr(config: TexiosRequestConfig): TexiosPromise {
 
     request.ontimeout = function handleTimeout() {
       reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', request))
+    }
+
+    if ((withCredentials || isURLSameOrigin(url!)) && xsrfCookieName) {
+      const xsrfValue = cookie.read(xsrfCookieName)
+      if (xsrfHeaderName && xsrfHeaderName) {
+        headers[xsrfHeaderName] = xsrfValue
+      }
     }
 
     Object.keys(headers).forEach(name => {

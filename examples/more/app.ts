@@ -9,3 +9,10 @@ texios.post(
     withCredentials: true
   }
 )
+
+const server = texios.create({
+  xsrfCookieName: 'XSRF-TOKEN-D',
+  xsrfHeaderName: 'XSRD-TOKEN-D'
+})
+
+server.get('/more/get')

@@ -13,6 +13,9 @@ const defaults: TexiosRequestConfig = {
     }
   },
 
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'XSRF-TOKEN',
+
   transformRequest: [
     function(data: any, headers: any): any {
       processHeaders(headers, data)

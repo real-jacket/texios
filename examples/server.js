@@ -23,7 +23,11 @@ app.use(
 
 app.use(webpackHotMiddleware(compiler))
 
-app.use(express.static(__dirname))
+app.use(express.static(__dirname, {
+  setHeaders: function (res) {
+    res.set('XSRF-TOKEN-D', 'abcd123');
+  }
+}))
 
 app.use(bodyParser())
 app.use(bodyParser.json())
