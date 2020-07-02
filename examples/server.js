@@ -7,6 +7,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.config')
 const multipart = require('connect-multiparty')
 const path = require('path')
+const atob = require('atob')
 
 require('./server2')
 
@@ -201,5 +202,18 @@ function registerMoreRouter() {
   router.post('/more/upload', function(req, res) {
     console.log(req.body, req.files)
     res.end('upload success')
+  })
+
+  router.post('/more/post', function(req, res) {
+    const auth = req.headers.authorization
+    const [type, credential] = auth.split(' ')
+    console.log(atob(credential))
+    const [username, password] = atob(credential).split(':')
+    if (type === 'Basic' && username === 'yee' && password === '123456') {
+      res.json(req.body)
+    } else {
+      res.status(401)
+      res.end('UnAuthorization')
+    }
   })
 }

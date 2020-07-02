@@ -19,7 +19,8 @@ export default function xhr(config: TexiosRequestConfig): TexiosPromise {
       xsrfCookieName,
       xsrfHeaderName,
       onDownloadProgress,
-      onUploadProgress
+      onUploadProgress,
+      auth
     } = config
 
     const request = new XMLHttpRequest()
@@ -91,6 +92,10 @@ export default function xhr(config: TexiosRequestConfig): TexiosPromise {
         if (xsrfHeaderName && xsrfHeaderName) {
           headers[xsrfHeaderName] = xsrfValue
         }
+      }
+
+      if (auth) {
+        headers['Authorization'] = 'Basic ' + btoa(auth.username + ':' + auth.password)
       }
 
       Object.keys(headers).forEach(name => {
