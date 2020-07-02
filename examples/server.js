@@ -5,6 +5,8 @@ const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.config')
+const multipart = require('connect-multiparty')
+const path = require('path')
 
 require('./server2')
 
@@ -21,13 +23,21 @@ app.use(
   })
 )
 
+app.use(
+  multipart({
+    uploadDir: path.resolve(__dirname, 'upload-file')
+  })
+)
+
 app.use(webpackHotMiddleware(compiler))
 
-app.use(express.static(__dirname, {
-  setHeaders: function (res) {
-    res.set('XSRF-TOKEN-D', 'abcd123');
-  }
-}))
+app.use(
+  express.static(__dirname, {
+    setHeaders: function(res) {
+      res.set('XSRF-TOKEN-D', 'abcd123')
+    }
+  })
+)
 
 app.use(bodyParser())
 app.use(bodyParser.json())
@@ -183,9 +193,13 @@ function registerCancelRouter() {
   })
 }
 
-
 function registerMoreRouter() {
-  router.get('/more/get', function (req, res) {
+  router.get('/more/get', function(req, res) {
     res.json(req.cookies)
+  })
+
+  router.post('/more/upload', function(req, res) {
+    console.log(req.body, req.files)
+    res.end('upload success')
   })
 }

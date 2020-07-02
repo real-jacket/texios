@@ -5,10 +5,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>More</title>
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
 </head>
 
 <body>
   <h1>more</h1>
+
+  <div style="padding-left: 10px;">
+    <h2>file download</h2>
+    <div>
+      <button id="download" class="btn btn-primary">Download</button>
+    </div>
+    <h2>file upload</h2>
+    <form role="form" class="form" onsubmit="return false;">
+      <input id="file" type="file" class="form-control" />
+      <button style="margin-top: 10px;" id="upload" type="button" class="btn btn-primary">Upload</button>
+    </form>
+  </div>
+
   <script src="/__build__/more.js"></script>
 </body>
 

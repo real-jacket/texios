@@ -1,4 +1,6 @@
 import { Method } from '../types'
+import { type } from 'os'
+import { inflateSync } from 'zlib'
 
 const toString = Object.prototype.toString
 
@@ -13,6 +15,10 @@ export function isDate(val: any): val is Date {
 // 对纯对象的判断，避免 Date Blob 等特殊对象干扰
 export function isPlainObject(val: any): val is Object {
   return toString.call(val) === '[object Object]'
+}
+
+export function isFormData(val: any): val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
 }
 
 export function extend<T, U>(to: T, from: U): T & U {
