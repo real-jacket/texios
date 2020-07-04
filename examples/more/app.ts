@@ -2,6 +2,7 @@ import texios from '../../src'
 import 'nprogress/nprogress.css'
 
 import NProgress from 'nprogress'
+import { TexiosError } from '../../src/helpers/error'
 
 // texios.get('/more/get')
 
@@ -84,22 +85,44 @@ import NProgress from 'nprogress'
 //   }
 // })
 
+// texios
+//   .post(
+//     '/more/post',
+//     {
+//       a: 1
+//     },
+//     {
+//       auth: {
+//         username: 'yee',
+//         password: '123456'
+//       }
+//     }
+//   )
+//   .then(res => {
+//     console.log(res)
+//   })
+//   .catch(err => {
+//     console.log(err)
+//   })
+
 texios
-  .post(
-    '/more/post',
-    {
-      a: 1
-    },
-    {
-      auth: {
-        username: 'yee',
-        password: '123456'
-      }
+  .get('/more/304', {
+    validateStatus(status: number) {
+      return status >= 200 && status < 400
     }
-  )
+  })
   .then(res => {
     console.log(res)
   })
-  .catch(err => {
-    console.log(err)
+  .catch((err: TexiosError) => {
+    console.log(err.message)
+  })
+
+texios
+  .get('/more/304')
+  .then(res => {
+    console.log(res)
+  })
+  .catch((err: TexiosError) => {
+    console.log('errrpr:', err.message)
   })

@@ -33,6 +33,7 @@ export interface TexiosRequestConfig {
   onDownloadProgress?: (e: ProgressEvent) => void
   onUploadProgress?: (e: ProgressEvent) => void
   auth?: TexiosBasicCredential
+  validateStatus?: (status: number) => boolean
 
   [propName: string]: any
 }
