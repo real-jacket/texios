@@ -1,6 +1,6 @@
 import { TexiosRequestConfig, TexiosPromise, TexiosResponse } from '../types'
 import xhr from './xhr'
-import { buildUrl } from '../helpers/url'
+import { buildUrl, isAbsoluteURL, combineURL } from '../helpers/url'
 // import { transformRequest, transformResponse } from '../helpers/data'
 // import { processHeaders } from '../helpers/header'
 import { flattenHeaders } from '../helpers/util'
@@ -23,7 +23,10 @@ function processConfig(config: TexiosRequestConfig): void {
 
 // 转化 url
 function transformURL(config: TexiosRequestConfig): string {
-  const { url, params, paramsSerializer } = config
+  let { url, params, paramsSerializer, baseURL } = config
+  if (baseURL && !isAbsoluteURL(url!)) {
+    url = combineURL(baseURL, url)
+  }
   return buildUrl(url!, params, paramsSerializer)
 }
 

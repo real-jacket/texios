@@ -77,6 +77,14 @@ export function isURLSameOrigin(requestURL: string): boolean {
   return parseOrigin.protocol === currentOrigin.protocol && parseOrigin.host === currentOrigin.host
 }
 
+export function isAbsoluteURL(url: string): boolean {
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+export function combineURL(baseURL: string, relativeURL?: string): string {
+  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL
+}
+
 const urlParsingNode = document.createElement('a')
 const currentOrigin = resolveURL(window.location.href)
 

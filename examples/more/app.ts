@@ -129,46 +129,60 @@ import qs from 'qs'
 //     console.log('error:', err.message)
 //   })
 
-texios
-  .get('/more/get', {
-    params: new URLSearchParams('a=b&c=d')
-  })
-  .then(res => {
-    console.log(res)
-  })
-  .catch(err => {
-    console.log(err)
-  })
+// texios
+//   .get('/more/get', {
+//     params: new URLSearchParams('a=b&c=d')
+//   })
+//   .then(res => {
+//     console.log(res)
+//   })
+//   .catch(err => {
+//     console.log(err)
+//   })
 
-texios
-  .get('/more/get', {
-    params: {
-      a: 1,
-      b: 2,
-      c: ['a', 'b', 'c']
-    }
-  })
-  .then(res => {
-    console.log(res)
-  })
-  .catch(err => {
-    console.log(err)
-  })
+// texios
+//   .get('/more/get', {
+//     params: {
+//       a: 1,
+//       b: 2,
+//       c: ['a', 'b', 'c']
+//     }
+//   })
+//   .then(res => {
+//     console.log(res)
+//   })
+//   .catch(err => {
+//     console.log(err)
+//   })
 
-texios
-  .get('/more/get', {
-    params: {
-      a: 1,
-      b: 2,
-      c: ['a', 'b', 'c']
-    },
-    paramsSerializer(params) {
-      return qs.stringify(params, { arrayFormat: 'brackets' })
-    }
-  })
-  .then(res => {
-    console.log(res)
-  })
-  .catch(err => {
-    console.log(err)
-  })
+// texios
+//   .get('/more/get', {
+//     params: {
+//       a: 1,
+//       b: 2,
+//       c: ['a', 'b', 'c']
+//     },
+//     paramsSerializer(params) {
+//       return qs.stringify(params, { arrayFormat: 'brackets' })
+//     }
+//   })
+//   .then(res => {
+//     console.log(res)
+//   })
+//   .catch(err => {
+//     console.log(err)
+//   })
+
+const server = texios.create({
+  baseURL: 'https://img.mukewang.com'
+})
+
+server.get('5cc01a7b0001a33718720632.jpg')
+
+server.get('5cc01a7b0001a33718720632.jpg', {
+  baseURL: 'http://img.abcd.com'
+})
+
+server.get('https://img.mukewang.com/szimg/5becd5ad0001b89306000338-360-202.jpg')
+
+texios.get('/more/get')
