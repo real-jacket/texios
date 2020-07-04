@@ -34,6 +34,7 @@ export interface TexiosRequestConfig {
   onUploadProgress?: (e: ProgressEvent) => void
   auth?: TexiosBasicCredential
   validateStatus?: (status: number) => boolean
+  paramsSerializer?: (params: any) => string
 
   [propName: string]: any
 }

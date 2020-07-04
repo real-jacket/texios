@@ -4,6 +4,8 @@ import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 import { TexiosError } from '../../src/helpers/error'
 
+import qs from 'qs'
+
 // texios.get('/more/get')
 
 // texios.post(
@@ -105,24 +107,68 @@ import { TexiosError } from '../../src/helpers/error'
 //     console.log(err)
 //   })
 
+// texios
+//   .get('/more/304', {
+//     validateStatus(status: number) {
+//       return status >= 200 && status < 400
+//     }
+//   })
+//   .then(res => {
+//     console.log(res)
+//   })
+//   .catch((err: TexiosError) => {
+//     console.log(err.message)
+//   })
+
+// texios
+//   .get('/more/304')
+//   .then(res => {
+//     console.log(res)
+//   })
+//   .catch((err: TexiosError) => {
+//     console.log('error:', err.message)
+//   })
+
 texios
-  .get('/more/304', {
-    validateStatus(status: number) {
-      return status >= 200 && status < 400
+  .get('/more/get', {
+    params: new URLSearchParams('a=b&c=d')
+  })
+  .then(res => {
+    console.log(res)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+texios
+  .get('/more/get', {
+    params: {
+      a: 1,
+      b: 2,
+      c: ['a', 'b', 'c']
     }
   })
   .then(res => {
     console.log(res)
   })
-  .catch((err: TexiosError) => {
-    console.log(err.message)
+  .catch(err => {
+    console.log(err)
   })
 
 texios
-  .get('/more/304')
+  .get('/more/get', {
+    params: {
+      a: 1,
+      b: 2,
+      c: ['a', 'b', 'c']
+    },
+    paramsSerializer(params) {
+      return qs.stringify(params, { arrayFormat: 'brackets' })
+    }
+  })
   .then(res => {
     console.log(res)
   })
-  .catch((err: TexiosError) => {
-    console.log('errrpr:', err.message)
+  .catch(err => {
+    console.log(err)
   })

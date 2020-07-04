@@ -23,8 +23,8 @@ function processConfig(config: TexiosRequestConfig): void {
 
 // 转化 url
 function transformURL(config: TexiosRequestConfig): string {
-  const { url, params } = config
-  return buildUrl(url!, params)
+  const { url, params, paramsSerializer } = config
+  return buildUrl(url!, params, paramsSerializer)
 }
 
 // // 处理 body data
