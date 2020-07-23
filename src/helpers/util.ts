@@ -1,6 +1,4 @@
 import { Method } from '../types'
-import { type } from 'os'
-import { inflateSync } from 'zlib'
 
 const toString = Object.prototype.toString
 
